@@ -193,9 +193,8 @@ void play_game(void) {
 		} else if (button==2 || escape_sequence_char == 'A') {
 			// Attempt to rotate
 			(void)attempt_rotation();
-		} else if (button==1 || escape_sequence_char == 'B') {
+		} else if (button==1 || escape_sequence_char == 32) {
 			// Attempt to drop block
-			
 			while(attempt_drop_block_one_row()){
 				last_drop_time = get_clock_ticks();
 			}
@@ -203,7 +202,15 @@ void play_game(void) {
 				break;	// GAME OVER
 			}
 			last_drop_time = get_clock_ticks();
-		} else if(serial_input == 'p' || serial_input == 'P') {
+		}else if (escape_sequence_char == 'B'){
+			if(!attempt_drop_block_one_row()) {
+                // Drop failed - fix block to board and add new block
+                  if(!fix_block_to_board_and_add_new_block()) {
+                      break;    // GAME OVER
+                  }
+              } 
+               last_drop_time = get_clock_ticks();
+		}else if(serial_input == 'p' || serial_input == 'P') {
 			// Unimplemented feature - pause/unpause the game until 'p' or 'P' is
 			// pressed again. All other input (buttons, serial etc.) must be ignored.
 		} 
