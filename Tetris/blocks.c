@@ -160,16 +160,17 @@ int8_t move_block_left(FallingBlock* blockPtr) {
 }
 
 int8_t move_block_right(FallingBlock* blockPtr) {
-	/* YOUR CODE HERE */
-	
-	/*
-	 * You may wish to model it on move_block_left above
-	 * Your function must return 0 if it's unable to move (e.g.
-	 * block is against the right hand side), 1 otherwise.
+	/* Check if the block is all the way to the right. If so, return 0
+	 * because we can't shift it further to the right.
 	 */
-	
+	if(blockPtr->column <= 0) {
+		return 0;
+	}
+
 	/*
-	 * Initially, this function does nothing so we return 0
+	 * Make the move.
 	 */
-	return 0;
+	blockPtr->column -= 1;
+	return 1;
+
 }

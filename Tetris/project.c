@@ -3,7 +3,7 @@
  *
  * Main file for the Tetris Project.
  *
- * Author: Peter Sutton. Modified by <YOUR NAME HERE>
+ * Author: Peter Sutton. Modified by <James Bentley>
  */ 
 
 #include <avr/io.h>
@@ -79,7 +79,7 @@ void splash_screen(void) {
 	
 	move_cursor(3,5);
 	set_display_attribute(FG_GREEN);	// Make the text green
-	printf_P(PSTR("CSSE2010/7201 Tetris Project by <your name(s) here>"));	
+	printf_P(PSTR("CSSE2010/7201 Tetris Project by James Bentley"));	
 	set_display_attribute(FG_WHITE);	// Return to default colour (White)
 	
 	// Output the scrolling message to the LED matrix
@@ -89,7 +89,7 @@ void splash_screen(void) {
 	// Red message the first time through
 	PixelColour colour = COLOUR_RED;
 	while(1) {
-		set_scrolling_display_text("TETRIS", colour);
+		set_scrolling_display_text("TETRIS 43682225", colour);
 		// Scroll the message until it has scrolled off the 
 		// display or a button is pushed. We pause for 130ms between each scroll.
 		while(scroll_display()) {
@@ -195,7 +195,7 @@ void play_game(void) {
 			(void)attempt_rotation();
 		} else if (button==1 || escape_sequence_char == 'B') {
 			// Attempt to drop block
-			if(!attempt_drop_block_one_row()) {
+			if(!attempt_drop_block()) {
 				// Drop failed - fix block to board and add new block
 				if(!fix_block_to_board_and_add_new_block()) {
 					break;	// GAME OVER
