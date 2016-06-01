@@ -195,12 +195,19 @@ void play_game(void) {
 			(void)attempt_rotation();
 		} else if (button==1 || escape_sequence_char == 'B') {
 			// Attempt to drop block
-			if(!attempt_drop_block()) {
+			
+			while(attempt_drop_block_one_row()){
+				last_drop_time = get_clock_ticks();
+			}
+			if(!fix_block_to_board_and_add_new_block()) {
+				break;	// GAME OVER
+			}
+			/*if(!attempt_drop_block_one_row()) {
 				// Drop failed - fix block to board and add new block
 				if(!fix_block_to_board_and_add_new_block()) {
 					break;	// GAME OVER
 				}
-			} 
+			} */
 			last_drop_time = get_clock_ticks();
 		} else if(serial_input == 'p' || serial_input == 'P') {
 			// Unimplemented feature - pause/unpause the game until 'p' or 'P' is
