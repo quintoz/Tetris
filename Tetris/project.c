@@ -193,7 +193,7 @@ void play_game(void) {
 		} else if (button==2 || escape_sequence_char == 'A') {
 			// Attempt to rotate
 			(void)attempt_rotation();
-		} else if (button==1 || escape_sequence_char == 32) {
+		} else if (button==1 || serial_input == ' ') {
 			// Attempt to drop block
 			while(attempt_drop_block_one_row()){
 				last_drop_time = get_clock_ticks();
