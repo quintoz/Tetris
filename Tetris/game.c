@@ -243,7 +243,25 @@ uint8_t fix_block_to_board_and_add_new_block(void) {
  */
 static void check_for_completed_rows(void) {
 	/* YOUR CODE HERE */
-	
+	for(int i=0;i<BOARD_ROWS;i++){
+		if (board[i] == ((1<< BOARD_WIDTH) - 1)){
+			ledmatrix_shift_display_right();
+			for(int j=0; j < i;j++){
+				//printf_P(i);
+				//printf_P(j);
+				copy_matrix_column(board_display[i-j-1],board_display[i-j]);
+				board[i-j] = board[i-j-1];
+				
+				//update_rows_on_display(0,8);
+				//set_matrix_column_to_colour(board_display[14], 0x00);
+				//copy_matrix_column(board_display[14],board_display[15]);
+				//for(int k=0;k<8;k++){
+				//board_display[i-j][k] = board_display[i-j-1][k];
+				//board_display[0][k] = 0;
+				//}
+			}
+		}
+	}
 	/* Suggested approach is to iterate over all the rows (0 to
 	 * BOARD_ROWS -1) in the board and check if the row is all ones
 	 * i.e. matches ((1 << BOARD_WIDTH) - 1).
